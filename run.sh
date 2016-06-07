@@ -1,0 +1,22 @@
+#!/bin/bash
+
+NAME=test_zookeeper
+IMAGE=precisionhawk/zookeeper
+HOST_COMM_PORT=2181
+CONTAINER_COMM_PORT=2181
+HOST_QUOROM_PORT=2888
+CONTAINER_QUOROM_PORT=2888
+HOST_ELECTION_PORT=3888
+CONTAINER_ELECTION_PORT=3888
+
+docker stop $NAME
+docker kill $NAME
+docker rm $NAME
+
+docker run \
+        -d \
+        -p $HOST_COMM_PORT:$CONTAINER_COMM_PORT \
+        -p $HOST_QUOROM_PORT:$CONTAINER_QUOROM_PORT \
+        -p $HOST_ELECTION_PORT:$CONTAINER_ELECTION_PORT \
+        --name $NAME \
+        $IMAGE
